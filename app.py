@@ -46,8 +46,8 @@ def create_ip():
 
 # get a list of all ip address
 
-@app.route('/all_ips')
-def all_ips():
+@app.route('/dashboard')
+def dashboard():
 	return render_template("dashboard.html")
 
 

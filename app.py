@@ -48,7 +48,7 @@ def create_ip():
 
 @app.route('/all_ips')
 def all_ips():
-	return render_template("all_ips.html")
+	return render_template("dashboard.html")
 
 
 

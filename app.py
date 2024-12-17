@@ -1,7 +1,32 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
+from flask_sqlalchemy import SQLAlchemy 
+from ipaddress import ip_address, ip_network
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'd85394dabea342b67953ddf95294'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ips.db'
+app.config['SQLALCHEMY_DATABASE_TRACK_MODIFICATIONS'] = False
 
+db = SQLAlchemy(app)
+
+app.app_context().push()
+
+
+class IPAddress(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	ip = db.Column(db.String(200), nullable=False)
+
+	def __str__(self):
+		return f"{self.ip}"
+
+
+
+class IPNetwork(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	net = db.Column(db.String(200), nullable=False)
+
+	def __str__(self):
+		return f"{self.net}"
 
 # login system 
 
@@ -39,8 +64,19 @@ def logout():
 
 # create ip address
 
-@app.route("/create_ip")
+@app.route("/create_ip", methods=['GET', 'POST'])
 def create_ip():
+	if request.method == 'POST':
+		ip = request.form['ip']
+		ip_address = ipaddress.ip_address(ip)
+
+		if ip_address:
+			db.session.add(ip_address)
+			db.session.commit()
+			return redirect(url_for(home))
+		else:
+			flash("invalid ip address")
+
 	return render_template("create_ip.html")
 
 
@@ -48,7 +84,8 @@ def create_ip():
 
 @app.route('/dashboard')
 def dashboard():
-	return render_template("dashboard.html")
+	ips = IPAddress.query.all()
+	return render_template("dashboard.html", ips=ips)
 
 
 
@@ -56,12 +93,24 @@ def dashboard():
 
 @app.route('/get_ip/<int:id>')
 def get_ip(id):
-	return render_template("get_ip.html")
+	ip_address = IPAddress.query.filter_by(id).first()
+	return render_template("get_ip.html", ip_address=ip_address)
 
 # update one ip address
 
-@app.route('/update_ip/<int:id>')
+@app.route('/update_ip/<int:id>', methods=['GET', 'POST'])
 def update_ip(id):
+	ip_address = IPAddress.query.filter_by(id).first()
+	if request.method == 'POST':
+		ip = request.form['ip']
+		ip_addr = ipaddress.ip_address(ip)
+		if ip_addr:
+			ip_address.ip = ip_addr 
+			db.session.commit()
+			return redirect(url_for("home"))
+		else:
+			flash("Invalid IP Address")
+
 	return render_template("update_ip.html")
 
 
@@ -69,7 +118,10 @@ def update_ip(id):
 
 @app.route("/delete_ip/<int:id>")
 def delete_ip(id):
-	pass
+	ip_address = IPAddress.query.filter_by(id).first()
+	db.session.delete(ip_address)
+	db.session.commit()
+	return redirect(url_for("home"))
 
 
 

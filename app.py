@@ -14,14 +14,14 @@ def home():
 
 # registration page 
 
-@app.route('/register', method=['GET', 'POST'])
+@app.route('/register')
 def register():
 	return render_template("register.html")
 
 
 # login page 
 
-@app.route('/login', method=['GET', 'POST'])
+@app.route('/login')
 def login():
 	return render_template("login.html")
 
@@ -39,7 +39,7 @@ def logout():
 
 # create ip address
 
-@app.route("/create_ip", method=['GET', 'POST'])
+@app.route("/create_ip")
 def create_ip():
 	return render_template("create_ip.html")
 
@@ -58,17 +58,21 @@ def all_ips():
 def get_ip(id):
 	return render_template("get_ip.html")
 
-
+# update one ip address
 
 @app.route('/update_ip/<int:id>')
 def update_ip(id):
 	return render_template("update_ip.html")
 
 
+# delete one ip address
 
-@app.route("/delete_ip/<int:id")
+@app.route("/delete_ip/<int:id>")
 def delete_ip(id):
 	pass
+
+
+
 
 
 

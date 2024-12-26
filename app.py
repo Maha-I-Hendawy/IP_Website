@@ -12,22 +12,22 @@ db = SQLAlchemy(app)
 app.app_context().push()
 
 
-"""class User(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
+class User(db.Model):
+	user_id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(200), unique=True, nullable=False)
 	email = db.Column(db.String(200), unique=True, nullable=False)
 	password = db.Column(db.String(200), nullable=False)
 
-	def __str__(db.Model):
+	def __str__(self):
 		return f"{self.username}, {self.email}"
 
-"""
+
 
 
 class IPAddress(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
+	ip_id = db.Column(db.Integer, primary_key=True)
 	ip = db.Column(db.String(200), nullable=False)
-
+    user_id = db.Column(db.ForeignKey('user_id'), nullable=False)
 	def __str__(self):
 		return f"{self.ip}"
 
@@ -36,7 +36,7 @@ class IPAddress(db.Model):
 
 
 class IPNetwork(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
+	net_id = db.Column(db.Integer, primary_key=True)
 	net = db.Column(db.String(200), nullable=False)
 
 	def __str__(self):

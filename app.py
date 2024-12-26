@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy 
 from ipaddress import ip_address, ip_network
 
@@ -10,6 +10,16 @@ app.config['SQLALCHEMY_DATABASE_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 app.app_context().push()
+
+
+class User(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	username = db.Column(db.String(200), unique=True, nullable=False)
+	email = db.Column(db.String(200), unique=True, nullable=False)
+	password = db.Column(db.String(200), nullable=False)
+
+	def __str__(db.Model):
+		return f"{self.username}, {self.email}"
 
 
 class IPAddress(db.Model):
@@ -41,6 +51,14 @@ def home():
 
 @app.route('/register')
 def register():
+	if request.method == 'POST':
+		username = request.form['username']
+		email = request.form['email']
+		password = request.form['password']
+		confirm_password = request.form['confirm_password']
+		if password == confirm_password:
+			pass
+			return redirect(url_for('login'))
 	return render_template("register.html")
 
 
@@ -48,6 +66,10 @@ def register():
 
 @app.route('/login')
 def login():
+	if request.method == 'POST':
+		username = request.form['username']
+		password = request.form['password']
+		session['username'] = username
 	return render_template("login.html")
 
 
@@ -55,7 +77,9 @@ def login():
 
 @app.route('/logout')
 def logout():
-	return redirect(url_for("home"))
+	if 'username' in session:
+		session.pop('username', default=None)
+		return redirect(url_for('home'))
 
 
 
@@ -93,14 +117,14 @@ def dashboard():
 
 @app.route('/get_ip/<int:id>')
 def get_ip(id):
-	ip_address = IPAddress.query.filter_by(id).first()
+	ip_address = IPAddress.query.filter_by(id=id).first()
 	return render_template("get_ip.html", ip_address=ip_address)
 
 # update one ip address
 
 @app.route('/update_ip/<int:id>', methods=['GET', 'POST'])
 def update_ip(id):
-	ip_address = IPAddress.query.filter_by(id).first()
+	ip_address = IPAddress.query.filter_by(id=id).first()
 	if request.method == 'POST':
 		ip = request.form['ip']
 		ip_addr = ipaddress.ip_address(ip)
@@ -118,12 +142,10 @@ def update_ip(id):
 
 @app.route("/delete_ip/<int:id>")
 def delete_ip(id):
-	ip_address = IPAddress.query.filter_by(id).first()
+	ip_address = IPAddress.query.filter_by(id=id).first()
 	db.session.delete(ip_address)
 	db.session.commit()
 	return redirect(url_for("home"))
-
-
 
 
 

@@ -18,26 +18,52 @@
 	{% endif %}
 </head>
 <body>
-    <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="{{ url_for('home') }}">IP Website</a>
-    </div>
-    <ul class="nav navbar-nav">
-    
-    	   <li><a href="{{ url_for('home') }}">Home</a></li>
-    	 
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-	         <li><a href="{{ url_for('register') }}">Sign Up</a></li>
-	         <li><a href="{{ url_for('login') }}">Login</a></li>
-     </ul>
-  </div>
-</nav>
+
+	{% if 'username' in session %}
+
+	     <nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="{{ url_for('home') }}">IP Website</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		    
+		    	   <li><a href="{{ url_for('home') }}">Home</a></li>
+		    	   <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+		    	 
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+		    	     <li><a href="{{ url_for('create_ip') }}">Create IP Address</a></li>
+			         <li><a href="#">{{ session['username'] }}</a></li>
+			         <li><a href="{{ url_for('logout') }}">Logout</a></li>
+		     </ul>
+		  </div>
+		</nav>
+
+	{% else %}
+	   <nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="{{ url_for('home') }}">IP Website</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		    
+		    	   <li><a href="{{ url_for('home') }}">Home</a></li>
+		    	 
+		    </ul>
+		    <ul class="nav navbar-nav navbar-right">
+			         <li><a href="{{ url_for('register') }}">Sign Up</a></li>
+			         <li><a href="{{ url_for('login') }}">Login</a></li>
+		     </ul>
+		  </div>
+		</nav>
+	
+	{%  endif %}
+   
 	{% with messages=get_flashed_messages() %}
 	   {% if messages %}
 	      {% for message in messages %}
-	       <span>{{ message }}</span>
+	         <span>{{ message }}</span>
 	      {%  endfor %}	
 	   {%  endif %}	
 	{%  endwith %}	

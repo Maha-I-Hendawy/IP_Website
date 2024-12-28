@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, session
-from flask_sqlalchemy import SQLAlchemy 
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 from ipaddress import ip_address, ip_network
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ class User(db.Model):
 	username = db.Column(db.String(200), unique=True, nullable=False)
 	email = db.Column(db.String(200), unique=True, nullable=False)
 	password = db.Column(db.String(200), nullable=False)
+	ip_addresses = db.relationship('IPAddress', backref='user')
 
 	def __str__(self):
 		return f"{self.username}, {self.email}"
@@ -27,7 +29,7 @@ class User(db.Model):
 class IPAddress(db.Model):
 	ip_id = db.Column(db.Integer, primary_key=True)
 	ip = db.Column(db.String(200), nullable=False)
-    user_id = db.Column(db.ForeignKey('user_id'), nullable=False)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
 	def __str__(self):
 		return f"{self.ip}"
 
@@ -57,7 +59,7 @@ def home():
 
 # registration page 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
 	if request.method == 'POST':
 		username = request.form['username']
@@ -65,19 +67,30 @@ def register():
 		password = request.form['password']
 		confirm_password = request.form['confirm_password']
 		if password == confirm_password:
-			pass
+			hashed_password = generate_password_hash(password)
+			user = User(username=username, email=email, password=hashed_password)
+			db.session.add(user)
+			db.session.commit()
+			flash("Your account has been created")
 			return redirect(url_for('login'))
 	return render_template("register.html")
 
 
 # login page 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
 		username = request.form['username']
 		password = request.form['password']
-		session['username'] = username
+
+		user = User.query.filter_by(username=username).first()
+		if user and check_password_hash(user.password, password):
+			session['username'] = username
+			session['user_id'] = user.user_id
+			flash("Hello " + user.username)
+			return redirect(url_for('dashboard'))
+			
 	return render_template("login.html")
 
 
@@ -98,15 +111,17 @@ def logout():
 
 @app.route("/create_ip", methods=['GET', 'POST'])
 def create_ip():
-	if 'username' in session:
+	if 'username' and 'user_id' in session:
 		if request.method == 'POST':
 			ip = request.form['ip']
-			ip_address = ipaddress.ip_address(ip)
+			ipaddr = ip_address(ip)
 
-			if ip_address:
-				db.session.add(ip_address)
+			if ipaddr:
+				ip_format = format(ipaddr)
+				ipaddress = IPAddress(ip=ip_format, user_id=session['user_id'])
+				db.session.add(ipaddress)
 				db.session.commit()
-				return redirect(url_for(home))
+				return redirect(url_for('home'))
 			else:
 				flash("invalid ip address")
 		return render_template("create_ip.html")
@@ -150,7 +165,7 @@ def update_ip(id):
 		ip_address = IPAddress.query.filter_by(id=id).first()
 		if request.method == 'POST':
 			ip = request.form['ip']
-			ip_addr = ipaddress.ip_address(ip)
+			ip_addr = ip_address(ip)
 			if ip_addr:
 				ip_address.ip = ip_addr 
 				db.session.commit()

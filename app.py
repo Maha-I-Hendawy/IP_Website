@@ -124,6 +124,7 @@ def create_ip():
 				return redirect(url_for('home'))
 			else:
 				flash("invalid ip address")
+				return redirect(url_for('create_ip'))
 		return render_template("create_ip.html")
 
 	else:

@@ -77,6 +77,14 @@ This application is implemented with:
 ## References
    - [Python](https://www.python.org/)
    - [Flask](https://flask.palletsprojects.com/en/stable/)
+
+## Available Documentation
+   - [IPAW API Documentation](https://www.blogger.com/blog/post/edit/6933722610381903803/4629798803395815001)
+   - [IPAW Database Design Document](https://www.blogger.com/blog/post/edit/6933722610381903803/2044947375224858554)
+   - [IPAW Reference Document](https://www.blogger.com/blog/post/edit/6933722610381903803/8245139298835483424)
+   - [IPAW Software Technical Specification](https://www.blogger.com/blog/post/edit/6933722610381903803/4157607587030916964)
+   - [IPAW Software Requirements Document](https://www.blogger.com/blog/post/edit/6933722610381903803/7494649792487314796)
+   - [IPAW Use Cases Document](https://www.blogger.com/blog/post/edit/6933722610381903803/9062554147828738959)
      
  
 

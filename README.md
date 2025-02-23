@@ -75,8 +75,8 @@ This application is implemented with:
      - System Design
 
 ## References
-   - Python:
-   - Flask:
+   - [Python:](https://www.python.org/)
+   - [Flask:](https://flask.palletsprojects.com/en/stable/)
      
  
 

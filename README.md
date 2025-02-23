@@ -82,12 +82,12 @@ This application is implemented with:
    - [Flask](https://flask.palletsprojects.com/en/stable/)
 
 ## Available Documentation
-   - [IPAW API Documentation](https://www.blogger.com/blog/post/edit/6933722610381903803/4629798803395815001)
-   - [IPAW Database Design Document](https://www.blogger.com/blog/post/edit/6933722610381903803/2044947375224858554)
-   - [IPAW Reference Document](https://www.blogger.com/blog/post/edit/6933722610381903803/8245139298835483424)
-   - [IPAW Software Technical Specification](https://www.blogger.com/blog/post/edit/6933722610381903803/4157607587030916964)
-   - [IPAW Software Requirements Document](https://www.blogger.com/blog/post/edit/6933722610381903803/7494649792487314796)
-   - [IPAW Use Cases Document](https://www.blogger.com/blog/post/edit/6933722610381903803/9062554147828738959)
+   - [IPAW API Documentation](https://miansh.blogspot.com/2025/02/ipaddresswebsite-api-documentation.html?q=IPAW)
+   - [IPAW Database Design Document](https://miansh.blogspot.com/2025/02/ipaddresswebsite-database-design.html?q=IPAW)
+   - [IPAW Reference Document](https://miansh.blogspot.com/2025/02/ipaddresswebsite-reference-document.html?q=IPAW)
+   - [IPAW Software Technical Specification](https://miansh.blogspot.com/2025/02/ipaddresswebsite-software-specification.html?q=IPAW)
+   - [IPAW Software Requirements Document](https://miansh.blogspot.com/2025/02/ipaw-software-requirements-document.html?q=IPAW)
+   - [IPAW Use Cases Document](https://miansh.blogspot.com/2025/02/ipaw-use-cases-document.html?q=IPAW)
 
 
      

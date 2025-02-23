@@ -26,10 +26,12 @@ This application is implemented with:
 - HTML
 - CSS
 - Bootstrap
-
+  
+<!--
 ## Challenges
 - Challenge:
 - Challenge: 
+-->
 
 ## Future implementations 
 

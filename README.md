@@ -14,14 +14,16 @@ The IPAW software is a simple crud application with a log-in system for managing
   
 This application is implemented with:
 
-## Back-end Technologies:
+## Technologies Used
+
+### Back-end Technologies:
 
 - Python
 - Flask
 - Flask-sqlalchemy
 - ipaddress module
 
-## Front-end Technologies:
+### Front-end Technologies:
 
 - HTML
 - CSS
@@ -87,6 +89,8 @@ This application is implemented with:
    - [IPAW Software Technical Specification](https://www.blogger.com/blog/post/edit/6933722610381903803/4157607587030916964)
    - [IPAW Software Requirements Document](https://www.blogger.com/blog/post/edit/6933722610381903803/7494649792487314796)
    - [IPAW Use Cases Document](https://www.blogger.com/blog/post/edit/6933722610381903803/9062554147828738959)
+
+
      
  
 

@@ -52,7 +52,7 @@ This application is implemented with:
 
 ### Installing dependencies
 
-    #### Setting up the development environment:
+    Setting up the development environment:
 
             mkdir project
             cd project

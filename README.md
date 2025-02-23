@@ -52,7 +52,7 @@ This application is implemented with:
 
 ### Installing dependencies
 
-#### Setting up the development environment:
+    - Setting up the development environment:
 
             mkdir project
             cd project
@@ -61,7 +61,7 @@ This application is implemented with:
             pip install requirements.txt
        
   ### Running the project
-  #### To run the project:
+     - To run the project:
            python3 run.py
 
 ## Using the project

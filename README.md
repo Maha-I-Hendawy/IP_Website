@@ -75,11 +75,13 @@ This application is implemented with:
    - Project design
      
      - Database Design
+       ![Database Design](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjikqXNom6RIH4khCLcw2R8EQYEO8unE0ZfU2nPx-0zM9MgBH0iE2FXiQuc12JeR1MmqahQYnXkNWstt7hRTJGHAbt4GRVcwWLr79elmwN740usgHmn8ZQQGkmKllvWYGyUjUIniEKo6E7itwKfhQN7Cien1Zqsb55W6vAKHzXfBQOvwVLk7Jg-LlhB06E/s871/IPAW_database_design.png)
      - System Design
 
 ## References
    - [Python](https://www.python.org/)
    - [Flask](https://flask.palletsprojects.com/en/stable/)
+   - [Flask-SQLAlchemy](https://flask-sqlalchemy.readthedocs.io/en/stable/)
 
 ## Available Documentation
    - [IPAW API Documentation](https://miansh.blogspot.com/2025/02/ipaddresswebsite-api-documentation.html?q=IPAW)

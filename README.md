@@ -82,6 +82,7 @@ This application is implemented with:
    - [Python](https://www.python.org/)
    - [Flask](https://flask.palletsprojects.com/en/stable/)
    - [Flask-SQLAlchemy](https://flask-sqlalchemy.readthedocs.io/en/stable/)
+   - [ipaddress Module](https://docs.python.org/3/library/ipaddress.html)
 
 ## Available Documentation
    - [IPAW API Documentation](https://miansh.blogspot.com/2025/02/ipaddresswebsite-api-documentation.html?q=IPAW)
